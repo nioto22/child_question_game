@@ -82,6 +82,78 @@ export default function Home() {
     }
   }
 
+  async function onSubmitRandomAnimal(event) {
+    event.preventDefault();
+    try {
+      const response = await fetch("/api/generate-random", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ animal: true }),
+      });
+
+      const data = await response.json();
+      if (response.status !== 200) {
+        throw data.error || new Error(`Request failed with status ${response.status}`);
+      }
+
+      setResult(data.result);
+    } catch (error) {
+      // Consider implementing your own error handling logic here
+      console.error(error);
+      alert(error.message);
+    }
+  }
+
+  async function onSubmitRandomObject(event) {
+    event.preventDefault();
+    try {
+      const response = await fetch("/api/generate-random", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ object: true }),
+      });
+
+      const data = await response.json();
+      if (response.status !== 200) {
+        throw data.error || new Error(`Request failed with status ${response.status}`);
+      }
+
+      setResult(data.result);
+    } catch (error) {
+      // Consider implementing your own error handling logic here
+      console.error(error);
+      alert(error.message);
+    }
+  }
+
+  async function onSubmitRandomPerson(event) {
+    event.preventDefault();
+    try {
+      const response = await fetch("/api/generate-random", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ person: true }),
+      });
+
+      const data = await response.json();
+      if (response.status !== 200) {
+        throw data.error || new Error(`Request failed with status ${response.status}`);
+      }
+
+      setResult(data.result);
+    } catch (error) {
+      // Consider implementing your own error handling logic here
+      console.error(error);
+      alert(error.message);
+    }
+  }
+
   return (
     <div>
       <Head>
@@ -91,25 +163,75 @@ export default function Home() {
 
       <main className={styles.main}>
         <div class="button-row">
-          <button class="rounded-button" onclick={onSubmitAnimal}>
-            <img src="/dog.png" alt="icon1"/>
-              <h3>QUESTION ANIMAL</h3>
+          <button class="rounded-button" onClick={onSubmitRandomAnimal}>
+            <img src="/dog.png" alt="icon1" />
+            <h3>QUESTION ANIMAL</h3>
           </button>
-          <button class="rounded-button" onclick={onSubmitObject}>
-            <img src="/object.png" alt="icon2"/>
-              <h3>QUESTION OBJECT</h3>
+          <button class="rounded-button" onClick={onSubmitRandomObject}>
+            <img src="/object.jpeg" alt="icon2" />
+            <h3>QUESTION OBJECT</h3>
           </button>
-          <button class="rounded-button" onclick={onSubmitPerson}>
-            <img src="/person.png" alt="icon3"/>
-              <h3>QUESTION PERSONAGE</h3>
+          <button class="rounded-button" onClick={onSubmitRandomPerson}>
+            <img src="/person.jpeg" alt="icon3" />
+            <h3>QUESTION PERSONAGE</h3>
           </button>
         </div>
-      </main>
-    </div>
+        <div className={styles.result}>{result}</div>
+      </main >
+    </div >
   )
 
 }
 
+/*
+<div class="container">
+        <div class="button-row">
+          <button class="rounded-button" onclick={onSubmitAnimal}>
+            <img src="/dog.png" alt="icon1" />
+            <h3>QUESTION ANIMAL</h3>
+          </button>
+          <button class="rounded-button" onclick={onSubmitObject}>
+            <img src="/object.jpeg" alt="icon2" />
+            <h3>QUESTION OBJECT</h3>
+          </button>
+          <button class="rounded-button" onclick={onSubmitPerson}>
+            <img src="/person.jpeg" alt="icon3" />
+            <h3>QUESTION PERSONAGE</h3>
+          </button>
+        </div>
+        <div class="button-row">
+          <form onSubmit={onSubmitAnimal}>
+            <input
+              type="text"
+              name="animal"
+              placeholder="Enter an animal"
+              value={animalInput}
+              onChange={(e) => setAnimalInput(e.target.value)}
+            />
+            <input type="submit" value="Generate question" />
+          </form>
+          <form onSubmit={onSubmitObject}>
+            <input
+              type="text"
+              name="object"
+              placeholder="Enter an object"
+              value={objectInput}
+              onChange={(e) => setObjectInput(e.target.value)}
+            />
+            <input type="submit" value="Generate question" />
+          </form>
+          <form onSubmit={onSubmitAnimal}>
+            <input
+              type="text"
+              name="animal"
+              placeholder="Enter an animal"
+              value={animalInput}
+              onChange={(e) => setAnimalInput(e.target.value)}
+            />
+            <input type="submit" value="Generate question" />
+          </form>
+        </div>
+        */
 
 /*
  <div>
