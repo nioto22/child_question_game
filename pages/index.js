@@ -6,6 +6,7 @@ export default function Home() {
   const [animalInput, setAnimalInput] = useState("");
   const [objectInput, setObjectInput] = useState("")
   const [result, setResult] = useState();
+  const [answer, setAnswer] = useState();
 
   async function onSubmitAnimal(event) {
     event.preventDefault();
@@ -23,8 +24,8 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setResult(data.result);
-      setAnimalInput("");
+      setResult(data.result.question);
+      setAnswer(data.result.answer);
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -48,8 +49,8 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setResult(data.result);
-      setObjectInput("");
+      setResult(data.result.question);
+      setAnswer(data.result.answer);
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -73,7 +74,8 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setResult(data.result);
+      setResult(data.result.question);
+      setAnswer(data.result.answer);
       setObjectInput("");
     } catch (error) {
       // Consider implementing your own error handling logic here
@@ -98,7 +100,8 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setResult(data.result);
+      setResult(data.result.question);
+      setAnswer(data.result.answer);
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -122,7 +125,8 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setResult(data.result);
+      setResult(data.result.question);
+      setAnswer(data.result.answer);
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -146,7 +150,8 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setResult(data.result);
+      setResult(data.result.question);
+      setAnswer(data.result.answer);
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -157,8 +162,8 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>OpenAI Quickstart</title>
-        <link rel="icon" href="/dog.png" />
+        <title>Qui suis-je ?</title>
+        <link rel="icon" href="/question.png" />
       </Head>
 
       <main className={styles.main}>
@@ -177,6 +182,7 @@ export default function Home() {
           </button>
         </div>
         <div className={styles.result}>{result}</div>
+        <div className={styles.rotatetext}>{answer}</div>
       </main >
     </div >
   )

@@ -40,7 +40,7 @@ export default async function (req, res) {
         const completionRandom = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: subjectprompt,
-            temperature: 0,
+            temperature: 1.0,
         });
         if (isAnimal) {
             questionPrompt = generateQuestionAnimalPromptFr(completionRandom.data.choices[0].text)
@@ -62,7 +62,10 @@ export default async function (req, res) {
             presence_penalty: 0.0,
         })
         console.log(question.data.choices[0].text)
-        res.status(200).json({ result: question.data.choices[0].text });
+        res.status(200).json({ result: {
+            question: question.data.choices[0].text, 
+            answer: completionRandom.data.choices[0].text 
+        }});
     } catch (error) {
         // Consider adjusting the error handling logic for your use case
         if (error.response) {
@@ -100,7 +103,7 @@ function generateRandomObjectPromptFr() {
 }
 
 function generateRandomPersonPromptFr() {
-    return `Choisir un personnage au hasard qui soit connu par un enfant de 3 ans
+    return `Choisir un personage au hasard qui soit connu par un enfant de 3 ans
 
     Objet: Un policier
     Objet: Un docteur
@@ -118,11 +121,11 @@ function generateQuestionAnimalPromptFr(animal) {
   
     Animal : Le chat
     Question : Je suis un animal à quatre pattes qui aime le lait : Je suis un animal à quatre pattes qui aime le lait. Qui suis-je ?
-    L'animal : L'éléphant
+    Animal : L'éléphant
     Question : Je suis un énorme animal avec une trompe.
-    L'animal : Le kangourou
+    Animal : Le kangourou
     Question : Je suis un animal d'Australie qui aime faire du bien à son petit dans la poche. Qui suis-je ?
-    L'animal : Baleine
+    Animal : Baleine
     Question : Je suis le plus grand des animaux. Je vis dans l'eau et je suis bleu. Qui suis-je ?
     Animal : ${capitalizedQuestionAnimal}
     Question:`
@@ -147,17 +150,17 @@ function generateQuestionAnimalPromptFr(animal) {
 
   function generateQuestionPersonPromptFr(person) {
     const capitalizedQuestionPerson = person[0].toUpperCase() + person.slice(1).toLowerCase();
-    return `Suggérer une question sur un personnage pour un enfant de 3 ans. 
+    return `Suggérer une question sur un personage pour un enfant de 3 ans. 
 
-  Personnage: Un policier
+  Personage: Un policier
   Question: Je suis une personne qui fait rêgner la loi. Je peux porter une étoile et une casquette. Je roule dans une voiture qui va très vite. Qui suis-je ?
-  Personnage: Un docteur
+  Personage: Un docteur
   Question: Je suis une personne que tu vas voir quand tu es malade et qui est habillé tout en blanc. Qui suis-je ?
-  Personnage: Mickey
+  Personage: Mickey
   Question: Je suis une petite souris de dessin animé. Ma fiancée s'appelle Monnie et j'aime danser. Qui suis-je ?
-  Personnage: Le Père Noël
+  Personage: Le Père Noël
   Question: Je suis un vieil homme vêtu de rouge qui nous rend visite une fois par an à Noël pour nous offrir des cadeaux. Qui suis-je ?
-  Personnage: ${capitalizedQuestionPerson}
+  Personage: ${capitalizedQuestionPerson}
   Question:`
 }
 
